@@ -20,7 +20,7 @@ class Login extends Contr {
     }
     
     if (!isset($_SESSION['user'])) {
-      $this->render('login', $data);
+      $this->render($data, 'login');
       return false;
     } 
     else {

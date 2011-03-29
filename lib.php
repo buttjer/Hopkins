@@ -45,8 +45,9 @@ class Lib {
   }
   
   function run() {
+    
     header("Content-type: text/html; charset={utf-8}");
-
+    
     if (!isset($_SERVER['PATH_INFO']) || $_SERVER['PATH_INFO'] == '/') {
       $reflection = new ReflectionClass('Ind');
       return $reflection->newInstance($this->options);
@@ -112,17 +113,40 @@ class Contr {
     die();
   }
   
-  function render($file_name, $data = array()) {
-    extract($data);
-    unset($data);
+  function render() {
+    $args = func_get_args();
+    
+    if(count($args) <= 1) {
+      $files[] = $args[0];
+    } else {
+      $data = $args[0];
+      extract($data);
+      unset($data);
+      unset($args[0]);
+      $files = $args;
+    }
+    
+    foreach($files as $key => $file) {
+      $view[] = realpath($this->options['root'] . '/views/' . $file . '.php');
+    }
+    
     ob_start();
-    include(realpath($this->options['root'] . '/views/' . $file_name . '.php'));
+    include($view[0]);
     print ob_get_clean();
   }
   
   function location($path = '') {
     header('Location: '. $_SERVER["SCRIPT_NAME"] . '/' . $path);
     return true;
+  }
+  
+  function db() {
+    try {
+      return new Mongo();
+    }
+    catch(MongoConnectionException $e) {
+      die('Could not connect. Check to make sure MongoDB is running.');
+    }
   }
 }
 

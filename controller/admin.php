@@ -1,16 +1,32 @@
 <?php
 
 class Admin extends Contr {
+  
+  function load() {
+    if($this->access()) {
+       return true;
+    } else {
+       $this->location('login/destination/admin');
+       return false;
+    }
+  }
 
   function index() {
+    $data = array(
+      "title" => array(
+        "ADMIN"
+        ),
+      "nav" => array(
+        "Dashbord" => "admin",
+        "Settings" => "admin/settings",
+        "Content" => "admin/content",
+        "Logout" => "login/destination/admin"
+        )
+    );
     
-    $data = array();
+    $db = $this->db();
     
-    if($this->access()) {
-      $this->render('admin', $data);
-    } else {
-      $this->location('login/destination/admin');
-    }
+    $this->render($data, 'admin');
     
   }
   
@@ -23,4 +39,47 @@ class Admin extends Contr {
     }
   }
   
+  function settings() {
+    
+    $data = array(
+      "title" => array(
+        "ADMIN",
+        "Settings"
+        ),
+      "nav" => array(
+        "Dashbord" => "admin",
+        "Settings" => "admin/settings",
+        "Content" => "admin/content",
+        "Logout" => "login/destination/admin"
+        ),
+      "content" => "bawm"
+    );
+    
+    $db = $this->db();
+    
+    $this->render($data, 'admin', 'settings', 'contenttypes');
+    
+  }
+  
+  function content() {
+    
+    $data = array(
+      "title" => array(
+        "ADMIN",
+        "Content"
+      ),
+      "nav" => array(
+        "Dashbord" => "admin",
+        "Settings" => "admin/settings",
+        "Content" => "admin/content",
+        "Logout" => "login/destination/admin"
+      )
+    );
+    
+    $db = $this->db();
+    
+    $this->render($data, 'admin');
+    
+  }
+
 }

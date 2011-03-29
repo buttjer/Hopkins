@@ -10,7 +10,7 @@ class Test extends Contr {
       'yay' => 'muharharharh'
     );
     
-    $this->render('test', $data);
+    $this->render($data, 'test');
   }
   
   function access() {
@@ -22,6 +22,6 @@ class Test extends Contr {
       'yay' => $yay
     );
     
-    $this->render('test', $data);
+    $this->render($data, 'test');
   }
 }
