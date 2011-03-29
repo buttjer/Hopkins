@@ -1,3 +1,2 @@
-<p>bawm</p>
-<strong><?php print $title[0]; ?></strong>
-<?php @include(next($view)) ?>
+<p>settings n stuff</p>
+<?php if($next = next($view)) include($next) ?>

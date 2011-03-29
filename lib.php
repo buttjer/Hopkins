@@ -126,7 +126,7 @@ class Contr {
       $files = $args;
     }
     
-    foreach($files as $key => $file) {
+    foreach($files as $file) {
       $view[] = realpath($this->options['root'] . '/views/' . $file . '.php');
     }
     

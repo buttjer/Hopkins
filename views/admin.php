@@ -17,7 +17,7 @@
     <?php endforeach; ?>
     </header>
     
-    <?php @include(next($view)) ?>
+    <?php if($next = next($view)) include($next) ?>
     
   </body>
 </html>
