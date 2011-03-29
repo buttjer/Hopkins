@@ -119,6 +119,11 @@ class Contr {
     include(realpath($this->options['root'] . '/views/' . $file_name . '.php'));
     print ob_get_clean();
   }
+  
+  function location($path = '') {
+    header('Location: '. $_SERVER["SCRIPT_NAME"] . '/' . $path);
+    return true;
+  }
 }
 
 class Ind extends Contr {
