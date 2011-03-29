@@ -1,6 +1,10 @@
 <?php
 
 class Test extends Contr {
+  function load() {
+    return $this->access();
+  }
+  
   function index() {
     $data = array(
       'yay' => 'muharharharh'
@@ -10,7 +14,7 @@ class Test extends Contr {
   }
   
   function access() {
-    return false;
+    return true;
   }
   
   function text($yay) {

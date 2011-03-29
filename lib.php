@@ -74,35 +74,33 @@ class Contr {
   
   function __construct($opt, $args = array()) {
     $this->options = $opt;
-    $this->load();
-
-    if (!empty($args)) {
-      if (method_exists($this, $args[0])) {
-        $ref = new ReflectionMethod(get_class($this), $args[0]);
-        unset($args[0]);
-        return $ref->invokeArgs($this, $args);
+    
+    if ($this->load()) {
+      if (!empty($args)) {
+        if (method_exists($this, $args[0])) {
+          $ref = new ReflectionMethod(get_class($this), $args[0]);
+          unset($args[0]);
+          return $ref->invokeArgs($this, $args);
+        }
+      }
+      else {
+        return $this->index();
       }
     }
     else {
-      if($this->access()) {
-        return $this->index();
-      } else {
-        $this->show_403();
-      }
+      $this->show_403();
     }
     
     $this->show_404();
   }
   
-  function index() {
-    $this->show_404();
-  }
-  
-  function access() {
+  function load() {
     return true;
   }
   
-  function load() {}
+  function index() {
+    $this->show_404();
+  }
   
   function show_404() {
     $this->render('404');
