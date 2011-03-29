@@ -9,6 +9,10 @@ class Test extends Contr {
     $this->render('test', $data);
   }
   
+  function access() {
+    return false;
+  }
+  
   function text($yay) {
     $data = array(
       'yay' => $yay

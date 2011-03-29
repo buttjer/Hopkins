@@ -5,7 +5,7 @@ class Lib {
   protected $options;
   protected $routes;
   
-  function __construct($options) {
+  function __construct($options = array()) {
     $this->options = array(
       'root' => dirname(__FILE__)
     );
@@ -84,7 +84,11 @@ class Contr {
       }
     }
     else {
-      return $this->index();
+      if($this->access()) {
+        return $this->index();
+      } else {
+        $this->show_403();
+      }
     }
     
     $this->show_404();
@@ -94,10 +98,19 @@ class Contr {
     $this->show_404();
   }
   
+  function access() {
+    return true;
+  }
+  
   function load() {}
   
   function show_404() {
     $this->render('404');
+    die();
+  }
+  
+  function show_403() {
+    $this->render('403');
     die();
   }
   
