@@ -116,9 +116,10 @@ class Contr {
   function render() {
     $args = func_get_args();
     
-    if(count($args) <= 1) {
+    if (count($args) <= 1) {
       $files[] = $args[0];
-    } else {
+    } 
+    else {
       $data = $args[0];
       extract($data);
       unset($data);
@@ -126,7 +127,7 @@ class Contr {
       $files = $args;
     }
     
-    foreach($files as $file) {
+    foreach ($files as $file) {
       $view[] = realpath($this->options['root'] . '/views/' . $file . '.php');
     }
     
@@ -140,14 +141,6 @@ class Contr {
     return true;
   }
   
-  function db() {
-    try {
-      return new Mongo();
-    }
-    catch(MongoConnectionException $e) {
-      die('Could not connect. Check to make sure MongoDB is running.');
-    }
-  }
 }
 
 class Ind extends Contr {

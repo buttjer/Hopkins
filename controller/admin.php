@@ -12,6 +12,7 @@ class Admin extends Contr {
   }
 
   function index() {
+    
     $data = array(
       "title" => array(
         "ADMIN"
@@ -23,8 +24,6 @@ class Admin extends Contr {
         "Logout" => "login/destination/admin"
         )
     );
-    
-    $db = $this->db();
     
     $this->render($data, 'admin');
     
@@ -51,13 +50,30 @@ class Admin extends Contr {
         "Settings" => "admin/settings",
         "Content" => "admin/content",
         "Logout" => "login/destination/admin"
-        ),
-      "content" => "bawm"
+        )
     );
     
-    $db = $this->db();
+    $db = db();
+    $col  = $db->bb->settings;
     
-    $this->render($data, 'admin', 'settings', 'contenttypes');
+    
+    if ($_POST) {
+      $col->drop();
+      if (isset($_POST['settings']) && is_array($_POST['settings'])) {
+        foreach ($_POST['settings'] as $id => $set) {
+          $id = new MongoId($id);
+          $col->insert($set, true);
+        }
+      }
+    }
+    
+    $res = $col->find();
+    
+    foreach ($res as $key => $doc) {
+      $data['settings'][$key] = $doc;
+    }
+    
+    $this->render($data, 'admin', 'settings');
     
   }
   
@@ -75,8 +91,6 @@ class Admin extends Contr {
         "Logout" => "login/destination/admin"
       )
     );
-    
-    $db = $this->db();
     
     $this->render($data, 'admin');
     

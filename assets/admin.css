@@ -1,0 +1,8 @@
+form nav {
+  display: inline-block;
+}
+form nav a {
+  margin: 10px;
+  font-family: sans-serif;
+  font-size: 11px;
+}

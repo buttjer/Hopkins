@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <title>Page Title</title>
   </head>
+  <script type="text/javascript" charset="utf-8" src="http://code.jquery.com/jquery-1.5.1.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/admin.js"></script>
+  <link type="text/css" rel="stylesheet" media="screen" href="../../assets/admin.css" />
   <body>
   
     <header>
