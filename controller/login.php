@@ -7,6 +7,8 @@ class Login extends Contr {
     unset($_SESSION['user']);
     $data = array();
     
+    global $key;
+    
     if ($_POST) {
       $username = $_POST['username'];
       $password = $_POST['password'];

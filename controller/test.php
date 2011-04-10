@@ -2,19 +2,17 @@
 
 class Test extends Contr {
   function load() {
-    return $this->access();
+    $this->helper('markdown');
+    
+    return true;
   }
   
   function index() {
     $data = array(
-      'yay' => 'muharharharh'
+      'yay' => markdown('_muharharharh_')
     );
     
     $this->render($data, 'test');
-  }
-  
-  function access() {
-    return true;
   }
   
   function text($yay) {

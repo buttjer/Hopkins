@@ -95,6 +95,10 @@ class Contr {
     $this->show_404();
   }
   
+  function helper($name) {
+    include(realpath($this->options['root'] . '/helper/'. $name . '.php'));
+  }
+  
   function load() {
     return true;
   }
