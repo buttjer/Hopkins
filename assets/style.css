@@ -1,0 +1,254 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "le-havre-1", "le-havre-2", "Le Havre", sans-serif;
+  font-weight: 200;
+  color: #fff;
+}
+
+a {
+  color: #fff;
+}
+
+#title  {
+  top: 160px;
+  left: 50%;
+  width: 200px;
+  position: absolute;
+  margin-left: 60px;
+  z-index: 100;
+}
+
+#title div {
+  -webkit-transform: rotate(30deg) skew(-30deg);
+  -moz-transform: rotate(30deg) skew(-30deg);
+  transform: rotate(30deg) skew(-30deg);
+}
+
+#title h1 {
+  font-weight: 200;
+}
+
+#title nav {
+  width: 0;
+}
+
+#title nav li {
+  list-style: none;
+}
+
+#title nav a {
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 800;
+  
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+
+#title nav a:hover,
+#title nav a.active,
+#title nav:hover a.active:hover {
+  padding-left: 10px;
+}
+
+#title nav:hover a.active {
+  padding-left: 0px;
+}
+
+#page {
+  background: url('head.png') no-repeat top center;
+  z-index: 100;
+  padding: 200px 0 100px;
+}
+
+#content {
+  width: 600px;
+  margin: 0 auto;
+  line-height: 180%;
+  margin: 0 auto;
+}
+
+section .blog header {
+  position: relative;
+  color: white;
+  margin: 120px 30px 50px 30px;
+  left: -105px;
+  top: 35px;
+  background: url(icon.png) left no-repeat;
+}
+
+section .blog header time {
+  position: absolute;
+  display: inline-block;
+  right: 508px;
+  text-align: right;
+  top: 86px;
+  font-size: 45px;
+  font-weight: 200;
+  
+  -webkit-transform: rotate(-30deg) skew(30deg);
+  -moz-transform: rotate(-30deg) skew(30deg);
+  transform: rotate(-30deg) skew(30deg);
+}
+
+section .blog header adress {
+  position: absolute;
+  display: inline-block;
+  right: 553px;
+  text-align: left;
+  top: 50px;
+  font-size: 2em;
+  font-weight: 200;
+  
+  -webkit-transform: rotate(-30deg) skew(30deg);
+  -moz-transform: rotate(-30deg) skew(30deg);
+  transform: rotate(-30deg) skew(30deg);
+}
+section .blog header h1 {
+  height: 72px;
+  font-size: 50px;
+  font-weight: 200;
+  position: relative;
+  top: -100px;
+  left: 58px;
+  width: 334px;
+  line-height: 45px;
+  
+  -webkit-transform: rotate(-30deg) skew(30deg);
+  -moz-transform: rotate(-30deg) skew(30deg);
+  transform: rotate(-30deg) skew(30deg);
+}
+
+section .blog header h1 a {
+  text-decoration: none;
+}
+
+section .blog header h2 {
+  height: 72px;
+  font-size: 25px;
+  font-weight: 800;
+  position: absolute;
+  top: -54px;
+  left: 54px;
+  width: 334px;
+  line-height: 25px;
+  
+  -webkit-transform: rotate(-30deg) skew(-30deg);
+  -moz-transform: rotate(-30deg) skew(-30deg);
+  transform: rotate(-30deg) skew(-30deg);
+}
+
+section .project {
+  position: relative;
+  padding: 50px 0px;
+}
+
+section .project img {
+  -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+}
+
+section .project header {
+  margin: 0px 0px 10px 0px;
+  font-size: 25px;
+  font-weight: 800;
+  text-align: right;
+  position: relative;
+  top: -119px;
+  left: -560px;
+}
+
+section .project header h1 {
+  font-weight: 200;
+  font-size: 50px;
+  -webkit-transform: rotate(30deg) skew(-30deg);
+}
+
+section .project header aside {
+  position: relative;
+  left: -16px;
+  -webkit-transform: rotate(30deg) skew(30deg);
+}
+
+section .people {
+  margin: 0px 0px 10px 0px;
+  font-size: 25px;
+  font-weight: 800;
+  text-align: right;
+}
+
+section .people h1 {
+  font-weight: 200;
+  font-size: 50px;
+}
+
+section .people.malte {
+  -webkit-transform: rotate(30deg) skew(-30deg);
+  position: relative;
+  top: -150px;
+  left: -490px;
+}
+
+section .people.philip {
+  -webkit-transform: rotate(-30deg) skew(30deg);
+  position: relative;
+  top: 150px;
+}
+
+section p {
+  font-size: 25px;
+  margin: 0px 0px 30px 0px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+section p a {
+  
+}
+
+.webkit body   {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 8px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+html.webkit {
+  overflow-y: auto;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+  display: block;
+  height: 0;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  -webkit-border-radius: 3px;
+  background: rgba(255, 255, 255, .5);
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  -webkit-border-radius: 3px;
+  background: rgba(255, 255, 255, .5);
+}
+
+#c {
+  position: absolute;
+  left: -140px;
+  top: -140px;
+}

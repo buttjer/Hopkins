@@ -7,12 +7,10 @@ class Login extends Contr {
     unset($_SESSION['user']);
     $data = array();
     
-    global $key;
-    
     if ($_POST) {
       $username = $_POST['username'];
       $password = $_POST['password'];
-      if ($username == "admin" && crypt($password, $key) == "21OZ4/WxREgV.") {
+      if ($username == "admin" && crypt($password, constant('KEY')) == "21OZ4/WxREgV.") {
         $_SESSION['user'] = 1;
       }
       else {

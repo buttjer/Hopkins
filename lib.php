@@ -2,7 +2,7 @@
 
 class Lib {
   
-  protected $options;
+  public $options;
   protected $routes;
   
   function __construct($options = array()) {
@@ -46,11 +46,14 @@ class Lib {
   
   function run() {
     
-    header("Content-type: text/html; charset={utf-8}");
+    global $global;
     
-    if (!isset($_SERVER['PATH_INFO']) || $_SERVER['PATH_INFO'] == '/') {
-      $reflection = new ReflectionClass('Ind');
-      return $reflection->newInstance($this->options);
+    header("Content-type: text/html; charset={utf-8}");
+    if (!isset($_SERVER['PATH_INFO']) || $_SERVER['PATH_INFO'] == '/') {  
+          
+      include(realpath($this->options['root'] . '/controller/'. $global['index'] . '.php'));
+      $reflection = new ReflectionClass($global['index']);     
+      return $reflection->newInstance($this->options, NULL);
     }
     else {
       $path = explode('/', $_SERVER['PATH_INFO']);
@@ -71,7 +74,7 @@ class Lib {
 }
 
 class Contr {
-  protected $options;
+  public $options;
   
   function __construct($opt, $args = array()) {
     $this->options = $opt;
@@ -126,7 +129,6 @@ class Contr {
     else {
       $data = $args[0];
       extract($data);
-      unset($data);
       unset($args[0]);
       $files = $args;
     }
@@ -145,10 +147,4 @@ class Contr {
     return true;
   }
   
-}
-
-class Ind extends Contr {
-  function index() {
-    $this->render('index');
-  }
 }

@@ -1,5 +1,5 @@
 <?php
-function formgen($items, $parentkey) {
+function formgen_r($items, $parentkey) {
   $output = '';
   foreach ($items as $key => $item):
     if (is_array($item)):
@@ -17,7 +17,7 @@ function formgen($items, $parentkey) {
       $output .= '<a class="addfieldset" href="#" data-parentkey="' . $parentkey . '[' . $key . ']' . '">add fieldset</a>';
       $output .= '<a class="remove" href="#">remove</a>';
       $output .= '</nav>';
-      $output .= formgen($item, $parentkey . '[' . $key . ']');
+      $output .= formgen_r($item, $parentkey . '[' . $key . ']');
       $output .= '</fieldset>';
     else:
       $output .= '<fieldset>';
@@ -35,13 +35,37 @@ function formgen($items, $parentkey) {
   endforeach;
   return $output;
 }
-?>
 
-<form name="settings" method="post" action="">
-  <input type="submit" name="Submit" value="Submit" />
-  <nav>
-    <a class="adddocument" href="#" data-parentkey="settings">add document</a>
-  </nav>
-  <?php print (isset($settings)) ? formgen($settings, 'settings') : ''; ?>
-  <input type="submit" name="Submit" value="Submit" />
-</form>
+function formgen_format($items, $parentkey) {
+  $output = '';
+  foreach ($items as $key => $item):
+    if(is_array($item)) {
+      $output .= '<fieldset>';
+      $output .= '<legend>';
+      $output .= $key;
+      $output .= '</legend>';
+      if(isset($item['value'])) {
+        switch($item['value']) {
+          case '_today':
+            $item['value'] = date('o-m-d\TG:i\Z');
+          break;
+        }
+      }
+      if(isset($item['value'])) {
+        switch($item['type']) {
+          case 'textfield':
+            $output .= '<input type="text" name="' . $parentkey . '[' . $key . ']' . '" id="' . $parentkey . '[' . $key . ']' . '" value="' . $item['value'] . '" />';
+            break;
+          case 'textarea':
+            $output .= '<textarea name="' . $parentkey . '[' . $key . ']' . '" id="' . $parentkey . '[' . $key . ']' . '" />' . $item['value'] . '</textarea>';
+            break;
+          case 'datefield':
+            $output .= '<input type="datetime" name="' . $parentkey . '[' . $key . ']' . '" id="' . $parentkey . '[' . $key . ']' . '" value="' . $item['value'] . '" />';
+            break;
+        }
+      }
+      $output .= '</fieldset>';
+    }
+  endforeach;
+  return $output;
+}
