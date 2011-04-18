@@ -109,7 +109,7 @@ function draw_thing() {
   c.closePath();
   c.restore();
 
-  sfc(hsl_to_rgb(hsl[0], hsl[1], hsl[2]));
+  sfc(hsl_to_rgb(hsl[0], hsl[1], hsl[2]-.1));
   c.fill();
 
   // front
@@ -144,6 +144,7 @@ function draw_thing() {
 
   c.closePath();
   c.restore();
+  sfc(hsl_to_rgb(hsl[0], hsl[1], hsl[2]));
   c.fill();
 
   // right

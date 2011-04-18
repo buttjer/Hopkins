@@ -32,12 +32,17 @@ class Admin extends Contr {
   }
   
   function access() {
+    global $global;
     session_start();
-    if (isset($_SESSION['user']) && $_SESSION['user'] == 1) {
-      return true;
-    } else {
-      return false;
+    if (isset($_SESSION['user'])) {
+      $col = $global['db']->bb->content;
+      $id = new MongoId($_SESSION['user']);
+      $doc = $col->findone(array('_id' => $id, 'type' => 'profile'));
+      if(is_array($doc)) {
+         return true;
+      }
     }
+    return false;
   }
   
   function settings() {
@@ -46,6 +51,8 @@ class Admin extends Contr {
     
     $data = $this->data;
     $col = $global['db']->bb->settings;
+    
+    $data['title'][] = 'settings';
     
     if ($_POST) {
       $col->drop();
@@ -95,21 +102,25 @@ class Admin extends Contr {
     
     $data['actions'] = array();
     if (isset($type)) {
-      $data['actions']['list'] = 'admin/content/' . $type . '/list';
       $data['actions']['add'] = 'admin/content/' . $type . '/entry';
     }
     
     if (isset($action)) {
-      $data['actions']['list'] = 'admin/content/' . $type . '/list';
       $data['actions']['add'] = 'admin/content/' . $type . '/entry';
     }
     
     switch ($action) {
       default:
       case 'list':
-        $data['title'][] = 'list all';
+        $data['entries'] = array();
         $col  = $global['db']->bb->content;
-        $res = $col->find();
+        
+        if($type) {
+          $res = $col->find(array('type' => $type));
+        } else {
+          $res = $col->find();
+        }
+        
         foreach ($res as $key => $doc) {
           $data['entries'][$key] = $doc;
         }
@@ -119,9 +130,18 @@ class Admin extends Contr {
         $col  = $global['db']->bb->content;
         if ($_POST) {
           if (isset($_POST['content']) && is_array($_POST['content'])) {
+            
+            if(isset($_POST['content']['password']) && $_POST['content']['password']) {
+              $_POST['content']['password'] = crypt($_POST['content']['password'], constant('KEY'));
+            }
             if(isset($_POST['content']['_id'])) {
               $id = new MongoId($_POST['content']['_id']);
               unset($_POST['content']['_id']);
+              if(isset($_POST['content']['password']) && !$_POST['content']['password']) {
+                $mid = new MongoId($id);
+                $doc = $col->findone(array('_id' => $mid));
+                $_POST['content']['password'] = $doc['password'];
+              }
               $col->update(array('_id' => $id), $_POST['content']);
             } else {
               unset($_POST['content']['_id']);
@@ -135,10 +155,10 @@ class Admin extends Contr {
           $mid = new MongoId($id);
           $doc = $col->findone(array('_id' => $mid));
           foreach($data['content'] as $key => $item) {
-            if(isset($doc[$key])) {
-              $value = $doc[$key];
-            } else {
+            if(!isset($doc[$key]) || $item['type'] == 'password') {
               $value = '';
+            } else {
+              $value = $doc[$key];
             }
             $data['content'][$key]['value'] = $value;
           }

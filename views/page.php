@@ -6,12 +6,12 @@
   <title><?php print $global['title']; ?></title>
   <script src="http://use.typekit.com/zkz3rzs.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
-  <link rel="stylesheet" href="<?php print $_SERVER["SCRIPT_NAME"] ?>/../assets/style.css" type="text/css" media="screen">
-  <link rel="alternate" type="application/atom+xml" title="<?php print $global['title']; ?> feed" href="<?php print $_SERVER["SCRIPT_NAME"] ?>/blog/feed" />
+  <link rel="stylesheet" href="<?php print $global['basepath'] ?>assets/style.css" type="text/css" media="screen">
+  <link rel="alternate" type="application/atom+xml" title="<?php print $global['title']; ?> feed" href="<?php print $global['basepath'] ?>blog/feed" />
 </head>
 <body>
   <script>
-    if (!!navigator.userAgent.match(/WebKit/)) document.getElementsByTagName('html')[0].className = 'webkit';
+    if (!!navigator.userAgent.match(/WebKit/) && !navigator.userAgent.match(/Mobile/)) document.getElementsByTagName('html')[0].className = 'webkit';
   </script>
   <div id="page">
   <header id="title">
@@ -22,7 +22,7 @@
         <ul>
           <?php foreach ($menu as $item): ?>
           <li>
-            <a href="<?php print $_SERVER["SCRIPT_NAME"] ?><?php print $item['path'] ?>" <?php if($item['status'] === true): ?>class="active"<?php endif; ?>><?php print $item['title'] ?></a>
+            <a href="<?php print $global['basepath'] ?><?php print $item['path'] ?>" <?php if($item['status'] === true): ?>class="active"<?php endif; ?>><?php print $item['title'] ?></a>
           </li>
           <?php endforeach; ?>
         </ul>

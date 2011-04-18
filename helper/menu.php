@@ -3,17 +3,17 @@
 function menu() {
   return array(
     "weblog" => array(
-      "path" => "/",
+      "path" => "",
       "title" => "Weblog",
       "status" => false
       ),
     "projects" => array(
-      "path" => "/projects",
+      "path" => "projects",
       "title" => "Projects",
       "status" => false
       ),
     "people" => array(
-      "path" => "/people",
+      "path" => "people",
       "title" => "People",
       "status" => false
       )

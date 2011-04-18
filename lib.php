@@ -46,21 +46,18 @@ class Lib {
   
   function run() {
     
-    global $global;
-    
+    global $global;  
     header("Content-type: text/html; charset={utf-8}");
-    if (!isset($_SERVER['PATH_INFO']) || $_SERVER['PATH_INFO'] == '/') {  
-          
+    if (!$global['path']) {
       include(realpath($this->options['root'] . '/controller/'. $global['index'] . '.php'));
       $reflection = new ReflectionClass($global['index']);     
       return $reflection->newInstance($this->options, NULL);
     }
     else {
-      $path = explode('/', $_SERVER['PATH_INFO']);
-      
+      $path = explode('/', $global['path']);
       foreach ($this->routes as $route => $class) {
-        if ($route == $path[1]) {
-          $args = array_slice($path, 2);
+        if ($route == $path[0]) {
+          $args = array_slice($path, 1);
           
           include(realpath($this->options['root'] . '/controller/'. $class . '.php'));
           $reflection = new ReflectionClass($class);
@@ -143,7 +140,8 @@ class Contr {
   }
   
   function location($path = '') {
-    header('Location: '. $_SERVER["SCRIPT_NAME"] . '/' . $path);
+    global $global;
+    header('Location: '. $global["basepath"] . $path);
     return true;
   }
   

@@ -44,14 +44,23 @@ function formgen_format($items, $parentkey) {
       $output .= '<legend>';
       $output .= $key;
       $output .= '</legend>';
-      if(isset($item['value'])) {
+      if (isset($item['value'])) {
         switch($item['value']) {
           case '_today':
             $item['value'] = date('o-m-d\TG:i\Z');
-          break;
+            break;
+          case '_currentuser':
+            global $global;
+            $col = $global['db']->bb->content;
+            $id = new MongoId($_SESSION['user']);
+            $doc = $col->findone(array('_id' => $id, 'type' => 'profile'));
+            $item['value'] = $doc['title'];
+            break;
         }
+      } else {
+        $item['value'] = '';
       }
-      if(isset($item['value'])) {
+      if (isset($item['value'])) {
         switch($item['type']) {
           case 'textfield':
             $output .= '<input type="text" name="' . $parentkey . '[' . $key . ']' . '" id="' . $parentkey . '[' . $key . ']' . '" value="' . $item['value'] . '" />';
@@ -61,6 +70,9 @@ function formgen_format($items, $parentkey) {
             break;
           case 'datefield':
             $output .= '<input type="datetime" name="' . $parentkey . '[' . $key . ']' . '" id="' . $parentkey . '[' . $key . ']' . '" value="' . $item['value'] . '" />';
+            break;
+          case 'password':
+            $output .= '<input type="password" autocomplete="off" name="' . $parentkey . '[' . $key . ']' . '" id="' . $parentkey . '[' . $key . ']' . '" value="' . $item['value'] . '" />';
             break;
         }
       }

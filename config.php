@@ -27,3 +27,5 @@ foreach ($res as $doc) {
     }
   }
 }
+$global['basepath'] = substr($_SERVER['SCRIPT_NAME'], 0, strlen($_SERVER['SCRIPT_NAME'])-9);
+$global['path'] = substr($_SERVER['REQUEST_URI'], strlen($global['basepath']));

@@ -3,6 +3,7 @@
 class Login extends Contr {
   
   function session() {
+    global $global;
     session_start();
     unset($_SESSION['user']);
     $data = array();
@@ -10,8 +11,10 @@ class Login extends Contr {
     if ($_POST) {
       $username = $_POST['username'];
       $password = $_POST['password'];
-      if ($username == "admin" && crypt($password, constant('KEY')) == "21OZ4/WxREgV.") {
-        $_SESSION['user'] = 1;
+      $col = $global['db']->bb->content;
+      $doc = $col->findone(array('username' => $username));
+      if (crypt($password, constant('KEY')) == $doc['password']) {
+        $_SESSION['user'] = (string)$doc['_id'];
       }
       else {
         $data["error"] = "username or password incorrect";

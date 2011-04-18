@@ -1,17 +1,94 @@
-form nav {
-  display: inline-block;
+body {
+  font: 16px/18px 'georgia';
 }
-form nav a {
-  margin: 10px;
-  font-family: sans-serif;
-  font-size: 11px;
+a {
+  color: #000;
+}
+#title {
+  width: 180px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: #222;
+}
+#title nav a {
+  display: block;
+  color: #fff;
+  background: #111;
+  margin: 3px 0px;
+  padding: 3px 7px;
+  text-decoration: none;
+}
+#title nav a:hover {
+  background: #000;
+}
+#title h1 {
+  font-size: 30px;
+  text-align: center;
+  display: block;
+  margin: 30px 0px;
+  letter-spacing: -3px;
+}
+#headline {
+  letter-spacing: -4px;
+  margin: 10px 0px;
+  position: fixed;
+  left: 180px;
+  top: 20px;
+  z-index: 100;
+}
+#content {
+  position: absolute;
+  top: 75px;
+  bottom: 0;
+  left: 200px;
+  right: 20px;
+}
+#content nav.contentypes a {
+  display: inline-block;
+  color: #fff;
+  background: #111;
+  margin: 3px 0px;
+  padding: 3px 7px;
+  text-decoration: none;
+}
+#content nav.contentypes a:hover {
+  background: #000;
 }
 h1, h2, h3, h4 {
   display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  padding: 5px 10px 3px 10px;
+  margin: 0;
+  background: #222;
+  color: #fff;
+  letter-spacing: normal;
+  font-weight: normal;
 }
 input, textarea {
   width: 100%;
 }
 textarea {
   height: 200px;
+}
+fieldset {
+  position: relative;
+}
+fieldset nav {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  display: inline-block;
+}
+fieldset nav a {
+  background: #fff;
+  padding: 0px 3px;
+  font-family: sans-serif;
+  font-size: 11px;
+  text-decoration: none;
+}
+fieldset nav a:hover {
+  background: #999;
 }

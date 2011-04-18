@@ -17,12 +17,14 @@ class Blog extends Contr {
     $data = $this->data;
     $db = db();
     $col  = $db->bb->content;
-    $res = $col->find();
+    $res = $col->find(array('type' => 'blog'));
     foreach ($res as $key => $doc) {
       $doc['text'] = Markdown($doc['text']);
       $data['entries'][$doc['date']] = $doc;
       $data['entries'][$doc['date']]['id'] = $key;
+      $data['entries'][$doc['date']]['path'] = rawurlencode($doc['title']);
     }
+    
     krsort($data['entries']);
     
     $this->render($data, 'page', 'blog');
@@ -31,7 +33,7 @@ class Blog extends Contr {
   function feed() {
     $db = db();
     $col  = $db->bb->content;
-    $res = $col->find();
+    $res = $col->find(array('type' => 'blog'));
     foreach ($res as $key => $doc) {
       $doc['text'] = Markdown($doc['text']);
       $data['entries'][$doc['date']] = $doc;
@@ -47,12 +49,12 @@ class Blog extends Contr {
     if (isset($id)) {
       $db = db();
       $col  = $db->bb->content;
-      $mid = new MongoId($id);
-      $doc = $col->findone(array('_id' => $mid));
+      $doc = $col->findone(array('title' => rawurldecode($id), 'type' => 'blog'));
       if (isset($doc)) {
         $doc['text'] = Markdown($doc['text']);
         $data['entries'][$doc['date']] = $doc;
         $data['entries'][$doc['date']]['id'] = $id;
+        $data['entries'][$doc['date']]['path'] = rawurlencode($doc['title']);
         $this->render($data, 'page', 'blog');
       } else {
         //TODO 404
