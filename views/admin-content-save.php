@@ -5,7 +5,7 @@
   <?php if(isset($content['_id'])): ?>
   <fieldset><legend>id</legend><input type="text" value="<?php print $content['_id']; ?>" name="content[_id]" id="content[_id]" readonly="readonly" /></fieldset>
   <?php endif; ?>
-  <?php print (isset($content)) ? formgen_format($content, 'content') : ''; ?>
+  <?php var_dump($content);  print (isset($content)) ? formgen_format($content, 'content') : ''; ?>
   <input type="submit" name="Submit" value="Submit" />
 </form>
 <?php if(isset($content['_id'])): ?>

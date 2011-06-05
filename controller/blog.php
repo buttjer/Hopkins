@@ -14,9 +14,10 @@ class Blog extends Contr {
   }
   
   function index() {
+    global $global;
+    
     $data = $this->data;
-    $db = db();
-    $col  = $db->bb->content;
+    $col  = $global['db']->content;
     $res = $col->find(array('type' => 'blog'));
     foreach ($res as $key => $doc) {
       $doc['text'] = Markdown($doc['text']);
@@ -31,24 +32,28 @@ class Blog extends Contr {
   }
   
   function feed() {
-    $db = db();
-    $col  = $db->bb->content;
+    global $global;
+    
+    $col  = $global['db']->content;
     $res = $col->find(array('type' => 'blog'));
     foreach ($res as $key => $doc) {
       $doc['text'] = Markdown($doc['text']);
       $data['entries'][$doc['date']] = $doc;
       $data['entries'][$doc['date']]['id'] = $key;
+      $data['entries'][$doc['date']]['path'] = rawurlencode($doc['title']);
     }
     krsort($data['entries']);
     $this->render($data, 'blog-feed');
   }
   
   function entry($id = NULL) {
+    global $global;
+    
+    
     $data = $this->data;
     
     if (isset($id)) {
-      $db = db();
-      $col  = $db->bb->content;
+      $col  = $global['db']->content;
       $doc = $col->findone(array('title' => rawurldecode($id), 'type' => 'blog'));
       if (isset($doc)) {
         $doc['text'] = Markdown($doc['text']);

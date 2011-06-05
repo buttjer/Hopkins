@@ -15,11 +15,14 @@ function db() {
   }
 }
 
+$db = db();
+
 // load and set page globals
 $global = array();
-$global['db'] = db();
-$col  = $global['db']->bb->settings;
+$global['db'] = $db->bb;
+$col  = $global['db']->settings;
 $res = $col->find();
+$global['index'] = 'hello';
 foreach ($res as $doc) {
   if ($doc['name'] == 'global') {
     foreach ($doc as $key => $item) {

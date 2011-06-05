@@ -5,9 +5,8 @@
     <title>Page Title</title>
   </head>
   <body>
-    <h1>TEST</h1>
     <p>
-      <?php print_r($yay) ?>
+      <?php print_r($data['hello']) ?>
     </p>
   </body>
 </html>

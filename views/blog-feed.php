@@ -10,8 +10,8 @@
 $date = new DateTime($entry['date']);
 ?>
 <entry>
-  <id>http://www.<?php print $global['domain']; ?>/<?php print $global['basepath'] ?>blog/entry/<?php print $entry['path']; ?></id>
-  <link rel="alternate" href="http://www.<?php print $global['domain']; ?>/blog/entry/<?php print $entry['id']; ?>"/>
+  <id>http://www.<?php print $global['domain']; ?><?php print $global['basepath'] ?>blog/entry/<?php print $entry['path']; ?></id>
+  <link rel="alternate" href="http://www.<?php print $global['domain']; ?><?php print $global['basepath'] ?>blog/entry/<?php print $entry['path']; ?>"/>
   <title><?php print $entry['title']; ?></title>
   <summary><?php print $entry['subtitle']; ?></summary>
   <updated><?php print $entry['date']; ?></updated>

@@ -35,7 +35,7 @@ class Admin extends Contr {
     global $global;
     session_start();
     if (isset($_SESSION['user'])) {
-      $col = $global['db']->bb->content;
+      $col = $global['db']->content;
       $id = new MongoId($_SESSION['user']);
       $doc = $col->findone(array('_id' => $id, 'type' => 'profile'));
       if(is_array($doc)) {
@@ -50,7 +50,7 @@ class Admin extends Contr {
     global $global;
     
     $data = $this->data;
-    $col = $global['db']->bb->settings;
+    $col = $global['db']->settings;
     
     $data['title'][] = 'settings';
     
@@ -85,7 +85,7 @@ class Admin extends Contr {
     }
     $data['type'] = $type;
     
-    $col  = $global['db']->bb->settings;
+    $col  = $global['db']->settings;
     
     $res = $col->find();
     
@@ -113,7 +113,7 @@ class Admin extends Contr {
       default:
       case 'list':
         $data['entries'] = array();
-        $col  = $global['db']->bb->content;
+        $col  = $global['db']->content;
         
         if($type) {
           $res = $col->find(array('type' => $type));
@@ -127,7 +127,7 @@ class Admin extends Contr {
         $this->render($data, 'admin', 'admin-content', 'admin-content-list');
         break;
       case 'entry':
-        $col  = $global['db']->bb->content;
+        $col  = $global['db']->content;
         if ($_POST) {
           if (isset($_POST['content']) && is_array($_POST['content'])) {
             
@@ -170,7 +170,7 @@ class Admin extends Contr {
       case 'remove':
         if ($_POST) {
           $id = new MongoId($_POST['content']['_id']);
-          $col  = $global['db']->bb->content;
+          $col  = $global['db']->content;
           $col->remove(array('_id' => $id), array('justOne' => true, 'safe' => true));
           $this->location('admin/content');
         }

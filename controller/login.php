@@ -11,7 +11,7 @@ class Login extends Contr {
     if ($_POST) {
       $username = $_POST['username'];
       $password = $_POST['password'];
-      $col = $global['db']->bb->content;
+      $col = $global['db']->content;
       $doc = $col->findone(array('username' => $username));
       if (crypt($password, constant('KEY')) == $doc['password']) {
         $_SESSION['user'] = (string)$doc['_id'];
